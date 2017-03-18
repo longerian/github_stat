@@ -48,5 +48,5 @@ while start <= limit:
 target.close()
 
 finish_time = time.time()
-cost = (finish_time - start_time) / 1000
+cost = (finish_time - start_time)
 print "task finished cost %d seconds" % cost

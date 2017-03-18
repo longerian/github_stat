@@ -46,7 +46,8 @@ while start <= limit:
 			watchers = repo['watchers_count']
 			language = repo['language']
 			forks_count = repo['forks_count']
-			target.write("%d-%d\t%s\t%s\t%d\t%d\t%s\t%d" % (start, end, name, owner, stars, watchers, language, forks_count))
+			issues_count = repo['open_issues_count']
+			target.write("%d-%d\t%s\t%s\t%d\t%d\t%s\t%d\t%d" % (start, end, name, owner, stars, watchers, language, forks_count, issues_count))
 			target.write("\n")
 	start = end
 	if start >= 3200:
@@ -62,5 +63,5 @@ detail_stat.close()
 target.close()
 
 finish_time = time.time()
-cost = (finish_time - start_time) / 1000
+cost = (finish_time - start_time)
 print "task finished cost %d seconds" % cost
