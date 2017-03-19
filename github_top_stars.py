@@ -30,13 +30,17 @@ page = 1
 count = 1
 while start <= limit:
 	end = start + step
+	mod = end % step
+	if mod != 0:
+		end = end - mod
 	url = 'https://api.github.com/search/repositories?q=stars:%d..%d&sort=stars&per_page=100&page=%d&order=asc' % (start, end, page)
 	print url
 	public_repos = requests.get(url, auth=(username, password)).json()
 	total_count = public_repos['total_count']
 	print "round %d [%d, %d] %d" % (count, start, end, total_count)
-	detail_stat.write("%d-%d\t%d" % (start, end, total_count))
-	detail_stat.write("\n")
+	if total_count > 0:
+		detail_stat.write("%d-%d\t%d" % (start, end, total_count))
+		detail_stat.write("\n")
 	if total_count > 0:
 		repos = public_repos['items']
 		for repo in repos:
@@ -49,7 +53,7 @@ while start <= limit:
 			issues_count = repo['open_issues_count']
 			target.write("%d-%d\t%s\t%s\t%d\t%d\t%s\t%d\t%d" % (start, end, name, owner, stars, watchers, language, forks_count, issues_count))
 			target.write("\n")
-	start = end
+	start = end + 1
 	if start >= 3200:
 		step = 100
 	if start >= 9000:

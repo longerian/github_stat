@@ -37,9 +37,10 @@ while start <= limit:
 	public_repos = requests.get(url, auth=(username, password)).json()
 	total_count = public_repos['total_count']
 	print "round %d [%d, %d] %d" % (count, start, end, total_count)
-	target.write("%d-%d\t%d" % (start, end, total_count))
-	target.write("\n")
-	start = end
+	if total_count > 0:
+		target.write("%d-%d\t%d" % (start, end, total_count))
+		target.write("\n")
+	start = end + 1
 	if count % 30 == 0:
 		# api call has limit 30 times/m'
 		print "sleeping for 61 seconds"
