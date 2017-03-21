@@ -1,5 +1,6 @@
 # github_stat
 
+## Plan
 + 统计数据
 + 定时更新
 + 存储
