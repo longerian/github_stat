@@ -22,7 +22,7 @@ start_time = time.time()
 
 target = open('github_stat.txt', 'w')
 start = 100
-limit = 250000
+limit = 300000
 step = 1000
 
 page = 1
@@ -35,7 +35,11 @@ while start <= limit:
 	url = 'https://api.github.com/search/repositories?q=stars:%d..%d&sort=stars&per_page=1&page=%d' % (start, end, page)
 	print url
 	public_repos = requests.get(url, auth=(username, password)).json()
-	total_count = public_repos['total_count']
+	if public_repos.has_key('total_count'):
+		total_count = public_repos['total_count']
+	else:
+		print public_repos
+		__exit__()
 	print "round %d [%d, %d] %d" % (count, start, end, total_count)
 	if total_count > 0:
 		target.write("%d-%d\t%d" % (start, end, total_count))

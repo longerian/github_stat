@@ -23,7 +23,7 @@ target = open('github_top_stars.txt', 'w')
 detail_stat = open('github_detail_stat.txt', 'w')
 
 start = 2000
-limit = 248000
+limit = 300000
 step = 10
 
 page = 1
